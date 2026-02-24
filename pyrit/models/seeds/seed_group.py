@@ -176,7 +176,7 @@ class SeedGroup(YamlLoadable):
 
         if len(existing_group_ids) > 1:
             raise ValueError("Inconsistent group IDs found across seeds.")
-        elif len(existing_group_ids) == 1:
+        if len(existing_group_ids) == 1:
             group_id = existing_group_ids.pop()
             for seed in self.seeds:
                 seed.prompt_group_id = group_id
@@ -339,8 +339,7 @@ class SeedGroup(YamlLoadable):
                 return None
 
             return self._prompts_to_messages(prepended_prompts)
-        else:
-            return self._prompts_to_messages(list(self.prompts))
+        return self._prompts_to_messages(list(self.prompts))
 
     @property
     def next_message(self) -> Optional[Message]:
